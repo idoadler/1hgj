@@ -8,9 +8,12 @@ public class GameManager : MonoBehaviour {
     public Text score;
     public Text time;
     public Text goal;
+    public GameObject baloon;
+    public float minimumHight;
 
     public int timeStart = 60;
     public int scoreGoal = 100;
+    public bool goalReached = false;
     
     private int scoreNum;
     private float timeNum;
@@ -28,16 +31,27 @@ public class GameManager : MonoBehaviour {
         scoreNum += add;
         score.text = ""+scoreNum;
         if (scoreNum >= scoreGoal)
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            goalReached = true;
     }
 
     private void Update()
     {
-        timeNum -= Time.deltaTime;
-        if(timeNum < 0)
+        if(baloon.transform.position.y < minimumHight)
         {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            goalReached = true;
         }
+        if (goalReached)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            return;
+        }
+
+        timeNum -= Time.deltaTime;
+       /* if(timeNum < 0)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            return;
+        }*/
         time.text = "" + (int)(timeNum+1);
     }
 }
