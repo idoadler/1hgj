@@ -6,19 +6,14 @@ using UnityEngine.UI;
 public class LevelManager : MonoBehaviour {
     public static LevelManager Instance;
 
-    public string correctText;
-    public string wrongText;
-    private string[] correctWords;
-    private string[] correctWordsFixed;
-    private string[] wrongWords;
-    private int currentWord;
+    public Spawner spawner;
 
-    public Text Letter;
-    public Button[] buttons;
-    private int currectButton;
-
+    public float timeForAttack;
+    public float timeGoing = 0;
+    public GameObject[] blocks;
     public Text score;
     public Text time;
+    public Text timeTitle;
     public Text goal;
     
     public Text BestScore;
@@ -30,68 +25,19 @@ public class LevelManager : MonoBehaviour {
     public GameObject PauseScreen;
 
     public bool paused = false;
-
-    public int timeLimit = 60;
+    
  //   public int scoreGoal = 100;
     public bool goalReached = false;
     public bool gameLost = false;
 
 //    private int scoreCount;
-//    private float timeCount;
+    private float timeCount;
 
     private void Awake()
     {
-        correctWords = Regex.Replace(correctText.ToLower(), "[^a-zA-Z0-9% ._]", string.Empty).Split(' ');
-        correctWordsFixed = correctText.Split(' ');
-        currentWord = 0;
-        wrongWords = Regex.Replace(wrongText.ToLower(), "[^a-zA-Z0-9% ._]", string.Empty).Split(' ');
-        SetNextWord();
-
         //goal.text = "Find the correct battery";
         Instance = this;
     }
-
-    public void SetNextWord()
-    {
-        if (currentWord >= correctWords.Length)
-        {
-            goalReached = true;
-            return;
-        }
-
-        currectButton = Random.Range(0, buttons.Length);
-        for (int i = 0; i < buttons.Length; i++)
-        {
-            if (i != currectButton)
-            {
-                buttons[i].GetComponentInChildren<Text>().text = 'V' + wrongWords[Random.Range(0, wrongWords.Length)].Substring(1);
-            }
-            else
-            {
-                buttons[i].GetComponentInChildren<Text>().text = 'V' + correctWords[currentWord].Substring(1);
-            }
-        }
-    }
-
-    public void ButtonClicked(int button)
-    {
-        if (currentWord == 0)
-        {
-            Letter.text = "";
-        }
-
-        if (button == currectButton)
-        {
-            Letter.text += ' ' + correctWordsFixed[currentWord];
-            currentWord++;
-            SetNextWord();
-        }
-        else
-        {
-            gameLost = true;
-        }
-    }
-    
 
     private void Update()
     {
@@ -104,6 +50,27 @@ public class LevelManager : MonoBehaviour {
             LostLevel();
             return;
         }
+
+        if (timeForAttack > 0)
+        {
+            timeForAttack -= Time.deltaTime;
+            time.text = "" + (int)(timeForAttack + 1);
+        }
+        else if (timeForAttack < 0)
+        {
+            timeForAttack = 0;
+            timeTitle.text = "Protect:";
+            spawner.Spawn();
+            if (DragAndDrop.DraggedInstance != null)
+            {
+                DragAndDrop.DraggedInstance.GetComponent<Rigidbody2D>().isKinematic = false;
+                DragAndDrop.DraggedInstance = null;
+            }
+        } else
+        {
+            timeGoing += Time.deltaTime;
+            time.text = "" + (int)(timeGoing);
+        }
     }
     
     public void WinLevel()
@@ -113,6 +80,31 @@ public class LevelManager : MonoBehaviour {
     }
 
     public void LostLevel()
+    {
+        foreach(GameObject g in blocks)
+        {
+            g.transform.position += Vector3.up * 0.2f;
+        }
+        gameLost = false;
+        spawner.Stop();
+        Invoke("ShowMenu", 1);
+        timeForAttack = 0;
+        if (timeGoing > 0)
+        {
+            CurrentScore.text = "Nice job! You protected the egg for: " + (int)(timeGoing+1) + " seconds";
+        }
+        else
+        {
+            CurrentScore.text = "You destroyd the egg! Don't do it!";
+        }
+    }
+
+    public void ShowMenu()
+    {
+        PauseScreen.SetActive(true);
+    }
+
+    public void Restart()
     {
         // Reload level
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
