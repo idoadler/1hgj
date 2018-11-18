@@ -9,11 +9,37 @@ public class LevelManager : MonoBehaviour {
     public Text time;
     public Text goal;
 
+    public GameObject correct;
+    public GameObject wrong;
+    public GameObject holder;
+
+    public int counter = 1;
     public Text BestScore;
     public Text CurrentScore;
+
+    internal void Next()
+    {
+        Lamp.Instance.Switcheru();
+        Invoke("Randomize", 0.5f);
+    }
+
     public Text PlayAgain;
     public KeyCode Pause = KeyCode.Space;
     public GameObject PauseScreen;
+
+    internal void Randomize()
+    {
+        foreach(Transform child in holder.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        Instantiate(correct, new Vector3((Random.value - 0.5f) * counter, (Random.value - 0.5f) * counter, 0), Quaternion.Euler(0,0, (Random.value - 0.5f) * 70), holder.transform);
+        for (int i = 0; i < counter; i++)
+        {
+            Instantiate(wrong, new Vector3((Random.value - 0.5f) * counter, (Random.value - 0.5f) * counter, 0), Quaternion.Euler(0, 0, (Random.value - 0.5f) * 70), holder.transform);
+        }
+        counter++;
+    }
 
     public bool paused = false;
 
@@ -24,8 +50,6 @@ public class LevelManager : MonoBehaviour {
 
     private int scoreCount;
     private float timeCount;
-    public char[] letterOptions;
-    public char TargetLetter;
 
     private void Awake()
     {
@@ -42,12 +66,12 @@ public class LevelManager : MonoBehaviour {
             CurrentScore.text = "";
         }
 
-        TargetLetter = letterOptions[Random.Range(0, letterOptions.Length)];
-
-        goal.text = "Click only: " + TargetLetter.ToString().ToUpper();
+        goal.text = "Find the correct battery";
         timeCount = 0;
         scoreCount = 0;
+        counter = 1;
         Instance = this;
+        Randomize();
     }
 
     public void UpdateScore(int add)
