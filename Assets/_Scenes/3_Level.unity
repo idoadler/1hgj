@@ -618,8 +618,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b4944909c88c04b8802a87f0229ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  correctText: "Victor, My son, there\u2019s a secret I\u2019ve never told you and your sister. It has been kept in our family for a long time. I believe it is time to reveal it to you."
-  wrongText: Contents Amaze Orange Defect Instrumental Beginnings Reckoning Adjective Mystery Mastery Analogue Certified Beneath Geyser Urchin Bumbling Gratifying Terrific Tabloid Jingling Servo Freedom Mantle Harvest Dreadful Jousting Viral Trembling Xylophone Freak Yearbook Weathervane Tempest Jarring Keelhaul Ordain Nimble Aztec Bunion Ocelot Bank Ox Neither Buffalo Underworld Mythos Trial Vanilla Abrasive Avarice Multiple Gravy Looming Balloon Airship Feisty Dossier Rivet Canoe Marooned Seed Lovely Notebook Revoke Edible
+  correctText: I spent my second year at one of the rainforests, climbing trees and documenting the avian variety. When I sat in a canopy of a broad leafed tree. It felt like falling but, in fact, it was the very opposite
+  wrongText: Rock Unfortunate Levitate Turmoil Whirlpool Contents Amaze Orange Defect Instrumental Beginnings Reckoning Adjective Mystery Mastery Analogue Certified Beneath Geyser Urchin Bumbling Gratifying Terrific Tabloid Jingling Servo Freedom Mantle Harvest Dreadful Jousting Viral Trembling Xylophone Freak Yearbook Weathervane Tempest Jarring Keelhaul Ordain Nimble Aztec Bunion Ocelot Bank Ox Neither Buffalo Underworld Mythos Trial Vanilla Abrasive Avarice Multiple Gravy Looming Balloon Airship Feisty Dossier Rivet Canoe Marooned Seed Lovely Notebook Revoke Edible
   Letter: {fileID: 2134818736}
   buttons:
   - {fileID: 388192753}
@@ -2246,7 +2246,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1 / 4
+  m_Text: 3 / 4
 --- !u!222 &2032087108
 CanvasRenderer:
   m_ObjectHideFlags: 0

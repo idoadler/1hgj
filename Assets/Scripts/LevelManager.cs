@@ -1,9 +1,21 @@
-﻿using UnityEngine;
+﻿using System.Text.RegularExpressions;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour {
     public static LevelManager Instance;
+
+    public string correctText;
+    public string wrongText;
+    private string[] correctWords;
+    private string[] correctWordsFixed;
+    private string[] wrongWords;
+    private int currentWord;
+
+    public Text Letter;
+    public Button[] buttons;
+    private int currectButton;
 
     public Text score;
     public Text time;
@@ -12,11 +24,6 @@ public class LevelManager : MonoBehaviour {
     public Text BestScore;
     public Text CurrentScore;
 
-    internal void Next()
-    {
-        Lamp.Instance.Switcheru();
-        Invoke("Randomize", 0.5f);
-    }
 
     public Text PlayAgain;
     public KeyCode Pause = KeyCode.Space;
@@ -29,38 +36,62 @@ public class LevelManager : MonoBehaviour {
     public bool goalReached = false;
     public bool gameLost = false;
 
-    private int scoreCount;
-    private float timeCount;
+//    private int scoreCount;
+//    private float timeCount;
 
     private void Awake()
     {
-        if (PlayerPrefs.HasKey(SceneManager.GetActiveScene().name + "_bestscore"))
-        {
-            BestScore.text = "Best Score:" + PlayerPrefs.GetInt(SceneManager.GetActiveScene().name + "_bestscore");
-            CurrentScore.text = "Your Score:" + PlayerPrefs.GetInt(SceneManager.GetActiveScene().name + "_lastscore", 0);
-            TogglePause();
-        }
-        else
-        {
-            PauseScreen.SetActive(false);
-            BestScore.text = "";
-            CurrentScore.text = "";
-        }
+        correctWords = Regex.Replace(correctText.ToLower(), "[^a-zA-Z0-9% ._]", string.Empty).Split(' ');
+        correctWordsFixed = correctText.Split(' ');
+        currentWord = 0;
+        wrongWords = Regex.Replace(wrongText.ToLower(), "[^a-zA-Z0-9% ._]", string.Empty).Split(' ');
+        SetNextWord();
 
-        goal.text = "Find the correct battery";
-        timeCount = 0;
-        scoreCount = 0;
+        //goal.text = "Find the correct battery";
         Instance = this;
     }
 
-    public void UpdateScore(int add)
+    public void SetNextWord()
     {
-        scoreCount += add;
-        score.text = ""+scoreCount;
-        CurrentScore.text = "Current Score: " + scoreCount;
-//        if (scoreCount >= scoreGoal)
-//            goalReached = true;
+        if (currentWord >= correctWords.Length)
+        {
+            goalReached = true;
+            return;
+        }
+
+        currectButton = Random.Range(0, buttons.Length);
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            if (i != currectButton)
+            {
+                buttons[i].GetComponentInChildren<Text>().text = 'V' + wrongWords[Random.Range(0, wrongWords.Length)].Substring(1);
+            }
+            else
+            {
+                buttons[i].GetComponentInChildren<Text>().text = 'V' + correctWords[currentWord].Substring(1);
+            }
+        }
     }
+
+    public void ButtonClicked(int button)
+    {
+        if (currentWord == 0)
+        {
+            Letter.text = "";
+        }
+
+        if (button == currectButton)
+        {
+            Letter.text += ' ' + correctWordsFixed[currentWord];
+            currentWord++;
+            SetNextWord();
+        }
+        else
+        {
+            gameLost = true;
+        }
+    }
+    
 
     private void Update()
     {
@@ -73,60 +104,17 @@ public class LevelManager : MonoBehaviour {
             LostLevel();
             return;
         }
-
-        timeCount += Time.deltaTime;
-        if(timeCount > timeLimit)
-        {
-            gameLost = true;
-            return;
-        }
-        time.text = "" + (int)((timeLimit-timeCount)+1);
-
-        if (Input.GetKeyDown(Pause))
-        {
-            TogglePause();
-            PlayAgain.text = "Continue";
-        }
-
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            Physics2D.gravity = Vector2.up * 9.81f;
-        } else
-        {
-            Physics2D.gravity = Vector2.down * 9.81f;
-        }
-
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            Physics2D.gravity += Vector2.right * 9.81f;
-        } else if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            Physics2D.gravity += Vector2.left * 9.81f;
-        }
     }
-
-    public void TogglePause()
-    {
-        paused = !paused;
-        PauseScreen.SetActive(paused);
-        Time.timeScale = paused ? 0 : 1;
-    }
-
+    
     public void WinLevel()
     {
         // Load next level
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        PlayerPrefs.SetInt(SceneManager.GetActiveScene().name + "_lastscore", scoreCount);
-        if(scoreCount > PlayerPrefs.GetInt(SceneManager.GetActiveScene().name + "_bestscore", 0))
-            PlayerPrefs.SetInt(SceneManager.GetActiveScene().name + "_bestscore", scoreCount);
     }
 
     public void LostLevel()
     {
         // Reload level
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        PlayerPrefs.SetInt(SceneManager.GetActiveScene().name + "_lastscore", scoreCount);
-        if (scoreCount > PlayerPrefs.GetInt(SceneManager.GetActiveScene().name + "_bestscore", 0))
-            PlayerPrefs.SetInt(SceneManager.GetActiveScene().name + "_bestscore", scoreCount);
     }
 }
