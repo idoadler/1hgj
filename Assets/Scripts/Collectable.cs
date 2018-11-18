@@ -12,7 +12,7 @@ public class Collectable : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D col)
     {
 //        Debug.Log(col.name);
-        GameManager.Instance.UpdateScore(value);
+        LevelManager.Instance.UpdateScore(value);
         Destroy(gameObject);
     }
 }

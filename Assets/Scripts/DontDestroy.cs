@@ -11,5 +11,9 @@ public class DontDestroy : MonoBehaviour {
             DontDestroyOnLoad(gameObject);
             created = true;
         }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }
