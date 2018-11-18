@@ -8,12 +8,7 @@ public class LevelManager : MonoBehaviour {
     public Text score;
     public Text time;
     public Text goal;
-
-    public GameObject correct;
-    public GameObject wrong;
-    public GameObject holder;
-
-    public int counter = 1;
+    
     public Text BestScore;
     public Text CurrentScore;
 
@@ -26,20 +21,6 @@ public class LevelManager : MonoBehaviour {
     public Text PlayAgain;
     public KeyCode Pause = KeyCode.Space;
     public GameObject PauseScreen;
-
-    internal void Randomize()
-    {
-        foreach(Transform child in holder.transform)
-        {
-            Destroy(child.gameObject);
-        }
-        Instantiate(correct, new Vector3((Random.value - 0.5f) * counter, (Random.value - 0.5f) * counter, 0), Quaternion.Euler(0,0, (Random.value - 0.5f) * 70), holder.transform);
-        for (int i = 0; i < counter; i++)
-        {
-            Instantiate(wrong, new Vector3((Random.value - 0.5f) * counter, (Random.value - 0.5f) * counter, 0), Quaternion.Euler(0, 0, (Random.value - 0.5f) * 70), holder.transform);
-        }
-        counter++;
-    }
 
     public bool paused = false;
 
@@ -69,9 +50,7 @@ public class LevelManager : MonoBehaviour {
         goal.text = "Find the correct battery";
         timeCount = 0;
         scoreCount = 0;
-        counter = 1;
         Instance = this;
-        Randomize();
     }
 
     public void UpdateScore(int add)
@@ -107,6 +86,22 @@ public class LevelManager : MonoBehaviour {
         {
             TogglePause();
             PlayAgain.text = "Continue";
+        }
+
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            Physics2D.gravity = Vector2.up * 9.81f;
+        } else
+        {
+            Physics2D.gravity = Vector2.down * 9.81f;
+        }
+
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            Physics2D.gravity += Vector2.right * 9.81f;
+        } else if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            Physics2D.gravity += Vector2.left * 9.81f;
         }
     }
 
