@@ -6,6 +6,7 @@ public class GameLoop : MonoBehaviour
 
     void Awake()
     {
+        PlayerPrefs.DeleteKey("bvb" + "_lastscore");
         Toolbox.RegisterComponent<BackButton>();
     }
 }

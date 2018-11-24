@@ -6,11 +6,9 @@ using UnityEngine.UI;
 public class LevelManager : MonoBehaviour {
     public static LevelManager Instance;
 
-    public Spawner spawner;
-
-    public float timeForAttack;
+    public float speedDown = 2;
+    
     public float timeGoing = 0;
-    public GameObject[] blocks;
     public Text score;
     public Text time;
     public Text timeTitle;
@@ -30,16 +28,43 @@ public class LevelManager : MonoBehaviour {
     public bool goalReached = false;
     public bool gameLost = false;
 
-//    private int scoreCount;
-    private float timeCount;
-
     private void Awake()
     {
+        Cursor.visible = false;
+
+        if (PlayerPrefs.HasKey("bvb" + "_lastscore"))
+        {            
+            CurrentScore.text = "Score: " + PlayerPrefs.GetInt("bvb" + "_lastscore", 0);
+            if (PlayerPrefs.GetInt("bvb" + "_bestscore") > PlayerPrefs.GetInt("bvb" + "_lastscore", 0))
+            {
+                BestScore.text = "Best Score: " + PlayerPrefs.GetInt("bvb" + "_bestscore");
+            }
+            else
+            {
+                BestScore.text = "New Record!";
+            }
+            TogglePause();
+        }
+        else
+        {
+            PauseScreen.SetActive(false);
+            BestScore.text = "";
+            CurrentScore.text = "";
+        }
+
         //goal.text = "Find the correct battery";
         Instance = this;
     }
 
-    private void Update()
+    public void TogglePause()
+    { 
+        paused = !paused;
+        Cursor.visible = paused;
+        PauseScreen.SetActive(paused);
+        Time.timeScale = paused? 0 : 1;
+    }
+
+private void Update()
     {
         if (goalReached)
         {
@@ -51,26 +76,10 @@ public class LevelManager : MonoBehaviour {
             return;
         }
 
-        if (timeForAttack > 0)
-        {
-            timeForAttack -= Time.deltaTime;
-            time.text = "" + (int)(timeForAttack + 1);
-        }
-        else if (timeForAttack < 0)
-        {
-            timeForAttack = 0;
-            timeTitle.text = "Protect:";
-            spawner.Spawn();
-            if (DragAndDrop.DraggedInstance != null)
-            {
-                DragAndDrop.DraggedInstance.GetComponent<Rigidbody2D>().isKinematic = false;
-                DragAndDrop.DraggedInstance = null;
-            }
-        } else
-        {
-            timeGoing += Time.deltaTime;
-            time.text = "" + (int)(timeGoing);
-        }
+        timeGoing += Time.deltaTime;
+        time.text = "" + (int)(timeGoing);
+
+        speedDown += Time.deltaTime * 0.5f;
     }
     
     public void WinLevel()
@@ -81,22 +90,7 @@ public class LevelManager : MonoBehaviour {
 
     public void LostLevel()
     {
-        foreach(GameObject g in blocks)
-        {
-            g.transform.position += Vector3.up * 0.2f;
-        }
-        gameLost = false;
-        spawner.Stop();
-        Invoke("ShowMenu", 1);
-        timeForAttack = 0;
-        if (timeGoing > 0)
-        {
-            CurrentScore.text = "Nice job! You protected the egg for: " + (int)(timeGoing+1) + " seconds";
-        }
-        else
-        {
-            CurrentScore.text = "You destroyd the egg! Don't do it!";
-        }
+        Restart();
     }
 
     public void ShowMenu()
@@ -106,6 +100,14 @@ public class LevelManager : MonoBehaviour {
 
     public void Restart()
     {
+        int score = (int)timeGoing;
+        PlayerPrefs.SetInt("bvb" + "_lastscore", score);
+
+        if (score > PlayerPrefs.GetInt("bvb" + "_bestscore", 0))
+        {
+            PlayerPrefs.SetInt("bvb" + "_bestscore", score);
+        }
+
         // Reload level
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
