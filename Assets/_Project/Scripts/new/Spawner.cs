@@ -10,6 +10,8 @@ public class Spawner : MonoBehaviour
     public float radius;
     public float minTime = 4;
     public float maxTime = 6;
+    public float accel = 0.05f;
+    private float timeModifier = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -22,10 +24,12 @@ public class Spawner : MonoBehaviour
         int times = Random.Range(min, max);
         for(int i = 0; i < times; i++)
         {
-            Instantiate(spawned);
+            GameObject g = Instantiate(spawned);
 
-            spawned.transform.position = transform.position + new Vector3((Random.value - 0.5f) * 2 * radius, (Random.value - 0.5f) * 2 * radius, 0);
-        } 
-        Invoke("SpawnObjects", Random.Range(minTime / LevelManager.Instance.speedDown, maxTime / LevelManager.Instance.speedDown));
+            g.transform.position =  new Vector3(Random.value - 0.5f, Random.value - 0.5f, 0).normalized * radius;
+            g.GetComponent<RandomizeSprite>().Speed *= timeModifier;
+        }
+        timeModifier += accel;
+        Invoke("SpawnObjects", Random.Range(minTime / timeModifier, maxTime / timeModifier));
     }
 }

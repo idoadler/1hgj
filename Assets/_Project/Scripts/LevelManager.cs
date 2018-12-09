@@ -110,6 +110,6 @@ public class LevelManager : MonoBehaviour {
         }
 
         // Reload level
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(0);// SceneManager.GetActiveScene().buildIndex);
     }
 }
