@@ -85,6 +85,11 @@ public class LevelManager : MonoBehaviour {
     
     public void WinLevel()
     {
+        Invoke("GoNext", 1);
+    }
+
+    private void GoNext()
+    {
         // Load next level
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
