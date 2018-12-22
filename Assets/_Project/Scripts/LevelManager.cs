@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class LevelManager : MonoBehaviour {
     public static LevelManager Instance;
 
-    public float speedDown = 2;
+    public float speed = 2;
     
     public float timeGoing = 0;
     public Text score;
@@ -106,6 +106,8 @@ public class LevelManager : MonoBehaviour {
 
     public void Restart()
     {
+        Time.timeScale = 1;
+
         int score = (int)timeGoing;
         PlayerPrefs.SetInt("bvb" + "_lastscore", score);
 
