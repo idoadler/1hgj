@@ -7,6 +7,7 @@ public class LevelManager : MonoBehaviour {
     public static LevelManager Instance;
 
     public float speed = 2;
+    public int target = 0;
     
     public float timeGoing = 0;
     public Text score;
@@ -24,9 +25,6 @@ public class LevelManager : MonoBehaviour {
 
     public bool paused = false;
     
- //   public int scoreGoal = 100;
-    public bool goalReached = false;
-    public bool gameLost = false;
 
     private void Awake()
     {
@@ -63,29 +61,11 @@ public class LevelManager : MonoBehaviour {
         PauseScreen.SetActive(paused);
         Time.timeScale = paused? 0 : 1;*/
     }
-
-    private void Update()
-    {
-        if (goalReached)
-        {
-            WinLevel();
-            return;
-        } else if (gameLost)
-        {
-            LostLevel();
-            return;
-        }
-
-        /*
-        timeGoing += Time.deltaTime;
-        time.text = "" + (int)(timeGoing);
-
-        speedDown += Time.deltaTime * 0.5f;*/
-    }
     
     public void WinLevel()
     {
-        Invoke("GoNext", 1);
+        //Invoke("GoNext", 1);
+        GoNext();
     }
 
     private void GoNext()
@@ -106,8 +86,6 @@ public class LevelManager : MonoBehaviour {
 
     public void Restart()
     {
-        Time.timeScale = 1;
-
         int score = (int)timeGoing;
         PlayerPrefs.SetInt("bvb" + "_lastscore", score);
 
@@ -117,6 +95,6 @@ public class LevelManager : MonoBehaviour {
         }
 
         // Reload level
-        SceneManager.LoadScene(0);// SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
