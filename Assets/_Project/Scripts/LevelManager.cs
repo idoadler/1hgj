@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour {
     public static LevelManager Instance;
-
-    public float speed = 2;
+    
     public int target = 0;
     
     public float timeGoing = 0;
@@ -24,7 +23,6 @@ public class LevelManager : MonoBehaviour {
     public GameObject PauseScreen;
 
     public bool paused = false;
-    
 
     private void Awake()
     {
@@ -71,12 +69,13 @@ public class LevelManager : MonoBehaviour {
     private void GoNext()
     {
         // Load next level
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
     }
 
     public void LostLevel()
     {
-        Restart();
+        //        Restart();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void ShowMenu()
