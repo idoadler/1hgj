@@ -8,12 +8,6 @@ public class player : MonoBehaviour
     public Tilemap map;
     public Grid grid;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        Debug.Log(map.HasTile(grid.WorldToCell(transform.position)));
-    }
-
     // Update is called once per frame
     void Update()
     {
