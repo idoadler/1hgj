@@ -12,6 +12,6 @@ public class GameLoop : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(BackButton.MAIN_SCENE);
     }
 }

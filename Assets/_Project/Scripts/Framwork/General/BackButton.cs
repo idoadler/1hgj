@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class BackButton : MonoBehaviour
 {
+    public static int MAIN_SCENE = 1;
+
 	// Update is called once per frame
 	private void Update() 
 	{
@@ -14,13 +16,13 @@ public class BackButton : MonoBehaviour
 
 	public static void BackButtonClicked()
 	{
-		if (SceneManager.GetActiveScene().buildIndex == 0)
+		if (SceneManager.GetActiveScene().buildIndex == MAIN_SCENE)
 		{
 			QuitGame();
 		}
 		else
 		{
-			SceneManager.LoadScene(0);
+			SceneManager.LoadScene(MAIN_SCENE);
 		}
 	}
 
