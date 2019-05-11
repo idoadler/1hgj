@@ -69,13 +69,13 @@ public class LevelManager : MonoBehaviour {
     private void GoNext()
     {
         // Load next level
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void LostLevel()
     {
         //        Restart();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(BackButton.MAIN_SCENE);
     }
 
     public void ShowMenu()
