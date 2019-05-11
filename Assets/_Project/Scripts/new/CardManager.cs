@@ -60,7 +60,14 @@ public class CardManager : MonoBehaviour
             cardsData[i].add = r + 1;
 
             if (Random.value < 0.25)
+            {
                 cards[i].num.sprite = numbers[3];
+                cards[i].plus.gameObject.SetActive(false);
+            }
+            else
+            {
+                cards[i].plus.gameObject.SetActive(true);
+            }
         }
     }
 
