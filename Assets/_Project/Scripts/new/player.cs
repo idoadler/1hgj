@@ -12,7 +12,7 @@ public class player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.localPosition.y < -60 || Mathf.Abs(transform.localPosition.x) > 100)
+        if(transform.localPosition.y < -70 || Mathf.Abs(transform.localPosition.x) > 110)
         {
             LevelManager.Instance.LostLevel();
         }

@@ -27,7 +27,6 @@ public class CardManager : MonoBehaviour
 
     public void Activate(int i)
     {
-        Debug.Log(i + ":" + dirs[cardsData[i].dir]);
         p.MovePlayer(dirs[cardsData[i].dir], cardsData[i].add);
         RandomizeCards();
     }
@@ -40,19 +39,16 @@ public class CardManager : MonoBehaviour
             {
                 cards[i].arrow.transform.localRotation = Quaternion.Euler(0, 0, 0);
                 cardsData[i].dir = 0;
-                Debug.Log(i + ":" + cardsData[i].dir);
             }
             else if (Random.value < 0.5)
             {
                 cards[i].arrow.transform.localRotation = Quaternion.Euler(0, 0, 90);
                 cardsData[i].dir = 1;
-                Debug.Log(i + ":" + cardsData[i].dir);
             }
             else
             {
                 cards[i].arrow.transform.localRotation = Quaternion.Euler(0, 0, -90);
                 cardsData[i].dir = 2;
-                Debug.Log(i + ":" + cardsData[i].dir);
             }
 
             int r = Random.Range(0, 3);
