@@ -25,11 +25,6 @@ public class CardManager : MonoBehaviour
         RandomizeCards();
     }
 
-    public void Activate(int i)
-    {
-        p.MovePlayer(dirs[cardsData[i].dir], cardsData[i].add);
-        RandomizeCards();
-    }
 
     public void RandomizeCards()
     {

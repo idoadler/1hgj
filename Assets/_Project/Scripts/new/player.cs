@@ -1,21 +1,30 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class player : MonoBehaviour
 {
+    public LevelManager manager;
     public Tilemap map;
     public Grid grid;
     public Rigidbody2D body;
 
+    public float moveSpeed = 3.0f;  // Units per second
+    
     // Update is called once per frame
     void Update()
     {
-        if(transform.localPosition.y < -70 || Mathf.Abs(transform.localPosition.x) > 110)
-        {
-            LevelManager.Instance.LostLevel();
-        }
+ 
+            var targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            targetPos.z = transform.position.z;
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, -1 * moveSpeed * Time.deltaTime);
+
+            if (Vector3.Distance(transform.position, targetPos) > 30)
+            {
+                transform.position = Vector3.zero;
+            }
         /*
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
@@ -35,12 +44,9 @@ public class player : MonoBehaviour
         }*/
     }
 
-    public void MovePlayer(Vector3 step, int power)
+    private void OnMouseDown()
     {
-        body.AddForce(step * power * 3, ForceMode2D.Impulse);
-/*        if(map.HasTile(grid.WorldToCell(transform.position + step)))
-        {
-            transform.position += step;
-        }*/
+        manager.AddScore(1);
+        transform.position = Vector3.zero;
     }
 }

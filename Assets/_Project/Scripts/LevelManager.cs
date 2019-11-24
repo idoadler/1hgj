@@ -1,5 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.Experimental.PlayerLoop;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -8,7 +9,8 @@ public class LevelManager : MonoBehaviour {
     
     public int target = 0;
     
-    public float timeGoing = 0;
+    public float timeGoing = 30;
+    public int nScore = 0;
     public Text score;
     public Text time;
     public Text timeTitle;
@@ -46,18 +48,27 @@ public class LevelManager : MonoBehaviour {
             CurrentScore.text = "";
         }
 
-        //goal.text = "Find the correct battery";
         Instance = this;
+    }
+
+    private void Update()
+    {
+        timeGoing -= Time.deltaTime;
+        if(timeGoing <0)
+            LostLevel();
+        else
+        {
+            time.text = timeGoing.ToString();
+        }
     }
 
     public void TogglePause()
     {
         PauseScreen.SetActive(false);
 
-        /*
         paused = !paused;
         PauseScreen.SetActive(paused);
-        Time.timeScale = paused? 0 : 1;*/
+        Time.timeScale = paused? 0 : 1;
     }
     
     public void WinLevel()
@@ -74,8 +85,8 @@ public class LevelManager : MonoBehaviour {
 
     public void LostLevel()
     {
-        //        Restart();
-        SceneManager.LoadScene(BackButton.MAIN_SCENE);
+        Restart();
+       // SceneManager.LoadScene(BackButton.MAIN_SCENE);
     }
 
     public void ShowMenu()
@@ -85,15 +96,20 @@ public class LevelManager : MonoBehaviour {
 
     public void Restart()
     {
-        int score = (int)timeGoing;
-        PlayerPrefs.SetInt("bvb" + "_lastscore", score);
+        PlayerPrefs.SetInt("bvb" + "_lastscore", nScore);
 
-        if (score > PlayerPrefs.GetInt("bvb" + "_bestscore", 0))
+        if (nScore > PlayerPrefs.GetInt("bvb" + "_bestscore", 0))
         {
-            PlayerPrefs.SetInt("bvb" + "_bestscore", score);
+            PlayerPrefs.SetInt("bvb" + "_bestscore", nScore);
         }
 
         // Reload level
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void AddScore(int i)
+    {
+        nScore++;
+        score.text = nScore.ToString();
     }
 }

@@ -9,8 +9,4 @@ public class Card : MonoBehaviour
     public Image plus;
     public Image num;
 
-    public void Activate()
-    {
-        parent.Activate(id);
-    }
 }
