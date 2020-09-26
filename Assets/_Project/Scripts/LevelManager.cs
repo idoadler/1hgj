@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using UnityEngine;
-using UnityEngine.Experimental.PlayerLoop;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
