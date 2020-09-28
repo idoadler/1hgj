@@ -3,21 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="23d2eb04-74aa-4227-9cf4-dea4181b25eb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.1hgj/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.1hgj/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.1hgj/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.1hgj/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.1hgj/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.1hgj/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/fonts/google/hebrew/Amatic_SC/AmaticSC-Bold SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Art/fonts/google/hebrew/Amatic_SC/AmaticSC-Bold SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/new/hole.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/new/hole.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/new/mouse.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Art/new/mouse.png.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/LevelManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/LevelManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/_Scenes/0_Loader.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/_Scenes/0_Loader.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/_Scenes/1_Menu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/_Scenes/1_Menu.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Project/_Scenes/2_Level.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/_Scenes/2_Level.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/Packages-Update.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/Packages-Update.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/UnityConnectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/UnityConnectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,12 +21,16 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/GameLoop.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Duck.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/LevelManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/new/Card.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/new/CardManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ProjectSettings/UnityConnectSettings.asset" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/DuckShooter.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/_Scenes/0_Loader.unity" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/new/player.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/_Scenes/1_Menu.unity" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/SmoothMouseLook.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -42,9 +38,13 @@
         <option value="$PROJECT_DIR$/Assets/_Project/Scripts/new/CardManager.cs" />
         <option value="$PROJECT_DIR$/Assets/_Project/Scripts/new/Card.cs" />
         <option value="$PROJECT_DIR$/Assets/_Project/Scripts/new/player.cs" />
-        <option value="$PROJECT_DIR$/Assets/_Project/Scripts/LevelManager.cs" />
         <option value="$PROJECT_DIR$/Temp/GeneratedFromSurface-Custom-VertexCol.shader" />
         <option value="$PROJECT_DIR$/Assets/_Project/Art/test/VertexColor.shader" />
+        <option value="$PROJECT_DIR$/Assets/_Project/Scripts/ShootAim.cs" />
+        <option value="$PROJECT_DIR$/Assets/_Project/Scripts/LevelManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/_Project/Scripts/DuckShooter.cs" />
+        <option value="$PROJECT_DIR$/Assets/_Project/Scripts/SmoothMouseLook.cs" />
+        <option value="$PROJECT_DIR$/Assets/_Project/Scripts/Duck.cs" />
       </list>
     </option>
   </component>
@@ -90,8 +90,16 @@
       <workItem from="1574536482663" duration="7000" />
       <workItem from="1574536496938" duration="4340000" />
       <workItem from="1601114348367" duration="973000" />
-      <workItem from="1601144286065" duration="258000" />
+      <workItem from="1601144286065" duration="10133000" />
     </task>
+    <task id="LOCAL-00001" summary="Preparation for 282th 1hgj">
+      <created>1601144594954</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1601144594954</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -111,6 +119,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Preparation for 282th 1hgj" />
+    <option name="LAST_COMMIT_MESSAGE" value="Preparation for 282th 1hgj" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="277" y="169" key="Vcs.Push.Dialog.v2" timestamp="1601144960464">
+      <screen x="0" y="0" width="1368" height="872" />
+    </state>
+    <state x="277" y="169" key="Vcs.Push.Dialog.v2/0.0.1368.872@0.0.1368.872" timestamp="1601144960464" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

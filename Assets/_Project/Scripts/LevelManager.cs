@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class LevelManager : MonoBehaviour {
     public static LevelManager Instance;
     
-    public int target = 0;
+    public int target = 3;
     
     public float timeGoing = 30;
     public int nScore = 0;
@@ -47,18 +47,20 @@ public class LevelManager : MonoBehaviour {
         }
 
         Instance = this;
+        
+        time.text = target.ToString();
     }
-
-    private void Update()
-    {
-        timeGoing -= Time.deltaTime;
-        if(timeGoing <0)
-            LostLevel();
-        else
-        {
-            time.text = timeGoing.ToString();
-        }
-    }
+    //
+    // private void Update()
+    // {
+    //     timeGoing += Time.deltaTime;
+    //     // if(timeGoing <0)
+    //     //     LostLevel();
+    //     // else
+    //     {
+    //         time.text = timeGoing.ToString();
+    //     }
+    // }
 
     public void TogglePause()
     {
@@ -109,5 +111,14 @@ public class LevelManager : MonoBehaviour {
     {
         nScore++;
         score.text = nScore.ToString();
+    }
+
+    public void Hit(GameObject duck)
+    {
+        target--;
+        time.text = target.ToString();
+        if (target < 0)
+            LostLevel();
+        Destroy(duck);
     }
 }
